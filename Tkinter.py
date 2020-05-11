@@ -1,3 +1,1 @@
 import tkinter
-
-print("aaaa")
