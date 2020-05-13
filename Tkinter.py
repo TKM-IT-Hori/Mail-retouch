@@ -1,8 +1,1 @@
 import tkinter
-
-
-
-
-
-
-aaaaaaaaaaa
