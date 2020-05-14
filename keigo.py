@@ -21,6 +21,11 @@ for item in list1:
     .replace('すみません', '申し訳ございません').replace('します', 'いたします').replace('わが社', '弊社')
     .replace('どうかいたしましたか？', 'いかがなさいましたか？')
     .replace('おっしゃられました', 'おっしゃいました')
+
+# https://business-textbooks.com/honorific70/
+# 社会人の教科書　間違えやすいビジネス敬語70選より置換
+# ソースがネット記事のみで曖昧なので使用するかは要相談（15~23行目）
+
     .replace('これ', 'こちら').replace('ここ', 'こちら').replace('こっち', 'こちら')
     .replace('それ', 'そちら').replace('そこ', 'そちら').replace('そっち', 'そちら')
     .replace('あれ', 'あちら').replace('あそこ', 'あちら').replace('あっち', 'あちら')
@@ -29,7 +34,7 @@ for item in list1:
     .replace('少し', '少々').replace('よい', 'よろしい').replace('うまい', 'おいしい')
     .replace('きょう', '本日').replace('きのう', '昨日').replace('おととい', '一昨日')
     .replace('今日','本日').replace('あす', '明日').replace('あさって', 'あさって')
-    .replace('あすの朝', '明朝').replace('あすの夜', '明晩').replace('今年', '本年')
+    .replace('あすの朝', '明朝').replace('明日の朝', '明朝').replace('あすの夜', '明晩').replace('明日の夜', '明晩').replace('今年', '本年')
     .replace('ことし', '本年').replace('去年', '昨年').replace('おととし', '一昨年')
     .replace('来年', '明年').replace('このあいだ', '先日').replace('この間', '先日')
     .replace('今度', 'このたび').replace('いま', 'ただいま').replace('さっき', 'さきほど')
@@ -39,6 +44,6 @@ for item in list1:
     list2.append(item_mod)
     
 # https://www.sanseido.biz/Main/Words/hyakka/Sonkei/03.aspx
-# 三省堂より参照
+# 三省堂より参照(29~41行目)
 
 print("置換後：{0}".format(list2))
