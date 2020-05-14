@@ -22,9 +22,8 @@ for item in list1:
     .replace('どうかいたしましたか？', 'いかがなさいましたか？')
     .replace('おっしゃられました', 'おっしゃいました')
 
-# https://business-textbooks.com/honorific70/
-# 社会人の教科書　間違えやすいビジネス敬語70選より置換
-# ソースがネット記事のみで曖昧なので使用するかは要相談（15~23行目）
+    # https://business-textbooks.com/honorific70/
+    # 社会人の教科書間違えやすいビジネス敬語70選　ソースが曖昧なため使用するかどうかは要相談
 
     .replace('これ', 'こちら').replace('ここ', 'こちら').replace('こっち', 'こちら')
     .replace('それ', 'そちら').replace('そこ', 'そちら').replace('そっち', 'そちら')
@@ -39,6 +38,8 @@ for item in list1:
     .replace('来年', '明年').replace('このあいだ', '先日').replace('この間', '先日')
     .replace('今度', 'このたび').replace('いま', 'ただいま').replace('さっき', 'さきほど')
     .replace('あとで', '後ほど').replace('後で', '後ほど')
+    .replace('わたし', 'わたくし').replace('前に', '以前').replace('ちょっと', '少々')
+    .replace('すごく', '非常に').replace('とても', '大変')
     )
     #リストに追加
     list2.append(item_mod)
