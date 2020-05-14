@@ -21,8 +21,24 @@ for item in list1:
     .replace('すみません', '申し訳ございません').replace('します', 'いたします').replace('わが社', '弊社')
     .replace('どうかいたしましたか？', 'いかがなさいましたか？')
     .replace('おっしゃられました', 'おっしゃいました')
+    .replace('これ', 'こちら').replace('ここ', 'こちら').replace('こっち', 'こちら')
+    .replace('それ', 'そちら').replace('そこ', 'そちら').replace('そっち', 'そちら')
+    .replace('あれ', 'あちら').replace('あそこ', 'あちら').replace('あっち', 'あちら')
+    .replace('どれ', 'どちら').replace('どこ', 'どちら').replace('どっち', 'どちら')
+    .replace('どう', 'いかが').replace('どのくらい', 'いかほど').replace('ほんとうに', 'まことに')
+    .replace('少し', '少々').replace('よい', 'よろしい').replace('うまい', 'おいしい')
+    .replace('きょう', '本日').replace('きのう', '昨日').replace('おととい', '一昨日')
+    .replace('今日','本日').replace('あす', '明日').replace('あさって', 'あさって')
+    .replace('あすの朝', '明朝').replace('あすの夜', '明晩').replace('今年', '本年')
+    .replace('ことし', '本年').replace('去年', '昨年').replace('おととし', '一昨年')
+    .replace('来年', '明年').replace('このあいだ', '先日').replace('この間', '先日')
+    .replace('今度', 'このたび').replace('いま', 'ただいま').replace('さっき', 'さきほど')
+    .replace('あとで', '後ほど').replace('後で', '後ほど')
     )
     #リストに追加
     list2.append(item_mod)
     
+# https://www.sanseido.biz/Main/Words/hyakka/Sonkei/03.aspx
+# 三省堂より参照
+
 print("置換後：{0}".format(list2))
