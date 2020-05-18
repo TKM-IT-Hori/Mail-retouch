@@ -1,65 +1,78 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends "layout.html" %} {% block content %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content=""><!-- 検索に出やすく -->
-  <meta name="author" content="TKM-IT">
-
-  <title>文章校正アプリ</title>
-  <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css">
-  <link href="https://getbootstrap.com/docs/4.0/examples/starter-template/starter-template.css" rel="stylesheet">
-</head>
-
-<body>
-
-  <nav class="navbar navbar-expand-md navbar-dark bg-blue fixed-top">
-    <a class="navbar-brand" href="#">文章校正</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-    </div>
-  </nav>
-
-  <div class="container">
+<div class="container">
     <div class="starter-template">
-      <h1>文章校正アプリケーション</h1>
-      <p class="lead">自信のない文章はありますか？
-        <br>テキストボックスに入力して、ボタンを押してみてください。</p>
+        <h1>文章校正アプリケーション</h1>
+        <p class="lead">自信のない文章はありますか？
+            <br>テキストボックスに入力またはペーストして、ボタンを押してみてください。</p>
     </div>
-  </div><!-- /.container -->
+</div>
+<!-- /.container -->
 
-  <div class="container">
-    <div class="form-group">
-      <label for="textarea">ボックス</label>
-      <textarea id="textarea" class="form-control" rows="10" placeholder="こちらへどうぞ。"></textarea>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form action="/test" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="textarea"><small>テキスト</small> </label>
+                    <textarea id="textarea" name="textarea" class="form-control" rows="10" placeholder="こちらへどうぞ。"></textarea>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <input class="btn btn-dark" type="submit" value="修正">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-6">
+            <form name="targetForm">
+                <div class="form-group">
+                    <label for="retouch"><small>修正先のテキスト</small></label>
+                    <textarea name=retouch id="retouch" class="form-control" rows="10" readonly>{{text}}</textarea>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <button name="copy1" class="btn btn-dark">コピー</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <p><a class="btn btn-primary" href="#" role="button">修正 &raquo;</a></p>
-  </div>
+</div>
 
-  <!-- Bootstrap core JavaScript
-    ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-    integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-    integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-    crossorigin="anonymous"></script>
-</body>
 
-</html>
+<!-- コピーボタン -->
+<script>
+    // フォーム要素を得る
+    var form = document.forms.targetForm;
+
+    // 対象のテキスト入力要素の中身をコピーするメソッド
+    var copyTextInTarget = function(target) {
+
+        // 要素に含まれる文字列全てを選択状態にする
+        target.selectionStart = 0;
+        target.selectionEnd = target.value.length;
+
+        // コピーしたい文字列がある要素をフォーカス
+        target.focus();
+
+        // コピーを実行する。失敗した場合はログにメッセージを表示。
+        if (!document.execCommand('copy')) {
+            console.log("コピーに失敗しました。");
+        }
+
+        // フォーカスを外す
+        target.blur();
+    };
+
+    // ボタン（copy1）がクリックされた時
+    form.copy1.addEventListener("click", function(e) {
+
+        // ボタン本来の動作をブロック
+        e.preventDefault();
+
+        // フォームの中にあるテキストエリアを取得
+        var textarea = form.retouch;
+
+        // 生成と同時にコピーする
+        copyTextInTarget(textarea);
+    }, false);
+</script>
+{% endblock %}
