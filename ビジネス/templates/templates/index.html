@@ -1,0 +1,105 @@
+{% extends "layout.html" %} {% block content %}
+
+<div class="container">
+    <div class="starter-template">
+        <h1>文章校正アプリケーション</h1>
+        <p class="lead">自信のない文章はありますか？
+            <br>テキストボックスに入力またはペーストして、ボタンを押してみてください。</p>
+    </div>
+</div><!-- /.container -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form action="/test" method="post" enctype="multipart/form-data" name=form1>
+                <div class="form-group">
+                    <label for="textarea1"><small>テキスト</small> </label>
+                    <span id="inputlength">0文字入力しています。</span>
+                    <textarea value=null id="textarea1" name="textarea1" class="form-control" rows="10" onkeyup="ShowLength(value);"
+                        placeholder="こちらへどうぞ。" required>{{beforeText}}</textarea>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <input class="btn btn-dark" type="submit" value="修正">
+                    <input class="btn btn-dark" type="button" value="例文" onclick="clickBtn1()">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-6">
+            <form name="targetForm">
+                <div class="form-group">
+                    <label for="retouch"><small>修正先のテキスト</small></label>
+                    <textarea name=retouch class="form-control" rows="10" readonly>{{text}}</textarea>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <button name="copy1" class="btn btn-dark">コピー</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <p class="wac-counter-message">最大1万字までとなります。 （現在 <span class="wac-counter" data-wac-counter>0</span> 文字入力しています。）</p> -->
+
+<!-- <div class="wac-yahoo-credit">
+    <!-- Begin Yahoo! JAPAN Web Services Attribution Snippet -->
+<!-- <a href="http://developer.yahoo.co.jp/about">
+        <img src="http://i.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif" title="Webサービス by Yahoo! JAPAN"
+            alt="Web Services by Yahoo! JAPAN" width="125" height="17" border="0"
+            style="margin:15px 15px 15px 15px"></a> -->
+<!-- End Yahoo! JAPAN Web Services Attribution Snippet -->
+<!-- </div> -->
+
+<!-- 例文ボタンjs -->
+<script>
+    function clickBtn1() {
+        // 値を設定
+        document.form1.textarea1.value = 'システムの規格から開発・運用まＤ幅広く関われます。';
+    }
+</script>
+
+<!-- コピーボタンjs -->
+<script>
+    // フォーム要素を得る
+    var form = document.forms.targetForm;
+
+    // 対象のテキスト入力要素の中身をコピーするメソッド
+    var copyTextInTarget = function (target) {
+
+        // 要素に含まれる文字列全てを選択状態にする
+        target.selectionStart = 0;
+        target.selectionEnd = target.value.length;
+
+        // コピーしたい文字列がある要素をフォーカス
+        target.focus();
+
+        // コピーを実行する。失敗した場合はログにメッセージを表示。
+        if (!document.execCommand('copy')) {
+            console.log("コピーに失敗しました。");
+        }
+
+        // フォーカスを外す
+        target.blur();
+    };
+
+    // ボタン（copy1）がクリックされた時
+    form.copy1.addEventListener("click", function (e) {
+
+        // ボタン本来の動作をブロック
+        e.preventDefault();
+
+        // フォームの中にあるテキストエリアを取得
+        var textarea = form.retouch;
+
+        // 生成と同時にコピーする
+        copyTextInTarget(textarea);
+    }, false);
+</script>
+
+<!-- 文字数カウントjs -->
+<script>
+    function ShowLength( str ) {
+   document.getElementById("inputlength").innerHTML = str.length + "文字入力しています。";
+}
+</script>
+{% endblock %}
