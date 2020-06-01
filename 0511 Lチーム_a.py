@@ -29,7 +29,7 @@ def yahoo(honorific):
         results.append({
             '間違い箇所-->':surface+'&#13;',
             '間違い内容-->':shitekiInfo+'&#13;',
-            '置換結果 -->': shitekiWord+'&#13;,
+            '置換結果 -->': shitekiWord+'&#13;',
             })
         return results
 
@@ -39,6 +39,5 @@ if __name__ == "__main__":
 		if not user_input:
 		 	break
 		if yahoo(user_input) is None:
-            # print("正しい日本語を入力してください")
 			break
 		print(yahoo(user_input))
