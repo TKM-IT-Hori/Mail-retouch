@@ -9,11 +9,10 @@ def doushi(honorific):
             # 品詞を取り出し
         partOfSpeech = token.part_of_speech.split(',')[0]
         if partOfSpeech == "動詞":
-            df = pd.read_csv('doushi.csv', encoding='utf_8', names=["見出し語","尊敬語","謙譲語","丁寧語"], usecols=[0,1,2,3],skiprows=[0], skipfooter=0, engine='python')
+            df = pd.read_csv('doushi2.csv', encoding='utf_8', names=["見出し語","尊敬語","謙譲語","丁寧語"], usecols=[0,1,2,3],skiprows=[0], skipfooter=0, engine='python')
             df= df.replace({'\n': '<br>'}, regex=True)
             df= df.replace({'\r': ''}, regex=True)
-            df = df[df['見出し語'].str.contains(token.surface)]
-     
+            df = df[df['見出し語']==(token.surface)]
             #.emptyでCSVに入力されてない見出し語の場合に以下を出力
             if df.empty:
                 response_empty='<font color="red">ご指定の語句には対応しておりません</font>'
@@ -39,7 +38,7 @@ def doushi(honorific):
             ds = pd.read_csv('meishi.csv', encoding='utf_8', names=["見出し語","尊敬語","謙譲語","丁寧語"], usecols=[0,1,2,3], skiprows=[0], skipfooter=0, engine='python')
             ds= ds.replace({'\n': '<br>'}, regex=True)
             ds= ds.replace({'\r': ''}, regex=True)
-            ds=ds[ds['見出し語'].str.contains(token.surface)]
+            ds=ds[ds['見出し語']==(token.surface)]
             if ds.empty:
                 response_empty='<font color="red">ご指定の語句には対応しておりません</font>'
                 return response_empty
@@ -60,7 +59,7 @@ def doushi(honorific):
             ds = pd.read_csv('zyoshi.csv', encoding='utf_8', names=["見出し語","尊敬語","謙譲語","丁寧語"], usecols=[0,1,2,3], skiprows=[0], skipfooter=0, engine='python')
             ds= ds.replace({'\n': '<br>'}, regex=True)
             ds= ds.replace({'\r': ''}, regex=True)
-            ds=ds[ds['見出し語'].str.contains(token.surface)]
+            ds=ds[ds['見出し語']==(token.surface)]
             if ds.empty:
                 response_empty='<font color="red">ご指定の語句には対応しておりません</font>'
                 return response_empty
@@ -81,9 +80,9 @@ def doushi(honorific):
             response_error='<font color="red">ご指定の語句には対応しておりません</font>'
             return response_error
 
-if __name__ == "__main__":
-	while True:
-		user_input = input("語句を入力してください：")
-		if not user_input:
-		 	break
-		print(doushi(user_input))
+if __name__=="__main__":
+    while True:
+        user_input=input("語句を入力してください:")
+        if not user_input:
+            break
+        print(doushi(user_input))
