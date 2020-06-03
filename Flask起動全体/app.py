@@ -42,9 +42,11 @@ def keigo():
     # ボタン押した後
     else:
         # 送られたワード
-        keigo = request.form["keigosearch"]
+        keigo = request.form["keigotext"]
+        print(keigo)
+        text = request.form["keigosearch"]
         # 解析
-        kaiseki = doushi.doushi(keigo)
+        kaiseki = doushi.doushi(text)
         print(kaiseki)
         # 結果あり
         if type(kaiseki) == tuple:
@@ -71,16 +73,16 @@ def keigo():
         elif type(kaiseki) == str:
             print(kaiseki)
             dropText = Markup(kaiseki)
-            sonkei = None
-            kennzyou = None
-            teinei = None
+            sonkei = []
+            kennzyou = []
+            teinei = []
             s_count = 0
             k_count = 0
             t_count = 0
-            # kensaku = ""
+
 
         # 変数送信
-        return render_template('index2.html', dropText=dropText, selectWord=keigo, sonkei=sonkei, kennzyou=kennzyou, teinei=teinei, s_count=s_count, k_count=k_count, t_count=t_count, keigo=keigo)
+        return render_template('index2.html', dropText=dropText, selectWord=text, sonkei=sonkei, kennzyou=kennzyou, teinei=teinei, s_count=s_count, k_count=k_count, t_count=t_count, keigo=keigo)
 
 
 if __name__ == "__main__":
