@@ -10,21 +10,21 @@
 </div>
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-8">
-            <form name="targetForm">
-                <div class="form-group">
-                    <!-- 入力テキストエリア -->
-                    <label for="textarea1"><small>テキスト</small> </label>
-                    <textarea name="keigo_text" id="keigo_text" class="form-control" rows="16"
-                        placeholder="文章を入力してください。">{{keigo}}</textarea>
-                </div>
-            </form>
-        </div>
+<form action="/keigo" method="post" enctype="multipart/form-data" name=form2>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <form name="targetForm">
+                    <div class="form-group">
+                        <!-- 入力テキストエリア -->
+                        <label for="keigotext"><small>テキスト</small> </label>
+                        <textarea name="keigotext" id="keigotext" class="form-control" rows="16"
+                            placeholder="文章を入力してください。">{{keigo}}</textarea>
+                    </div>
+                </form>
+            </div>
 
-        <div class="col-4">
-            <form action="/keigo" method="post" enctype="multipart/form-data" name=form2>
+            <div class="col-4">
                 <div class="form-group">
                     <!-- 抜き出すテキストエリア -->
                     <label for="keigosearch"><small>選択した部分を抜き出します。</small></label>
@@ -76,10 +76,10 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+</form>
 
 <div class="container">
     <div class="starter-template">
