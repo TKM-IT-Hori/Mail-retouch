@@ -1,0 +1,129 @@
+{% extends "layout.html" %} {% block content %}
+
+<div class="container">
+    <div class="starter-template">
+        <h1>文章校正</h1>
+        <p class="lead">自信のない文章はありますか？
+            <br>テキストボックスに入力またはペーストして、ボタンを押してみてください。
+        </p>
+    </div>
+</div><!-- /.container -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <form action="/test" method="post" enctype="multipart/form-data" name=form1>
+                <div class="form-group">
+                    <label for="textarea1"><small>テキスト</small> </label>
+                    <small><span id="inputlength">0文字入力しています。</span></small>
+                    <textarea value=null id="textarea1" name="textarea1" class="form-control" rows="10"
+                        onkeyup="ShowLength(value);" placeholder="こちらへどうぞ。" required>{{beforeText}}</textarea>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <input class="btn btn-dark" id="koseibtn" type="submit" value="校正">
+                    <input class="btn btn-dark" type="button" value="例文" onclick="clickBtn1()">
+                </div>
+                <div style="text-align: center;">
+                    <button name="copy1" class="btn btn-dark">コピー</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-4">
+            <form name="targetForm">
+                <div class="form-group">
+                    <label for="retouch"><small>処理結果</small></label>
+                    <textarea class="form-control" rows="10" readonly>{{ text }}</textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="starter-template">
+        <div style="display:inline-block;text-align:left;">
+            <div style="text-decoration:underline;text-decoration-color:rgb(195, 195, 195);">
+                <h4>〈使い方〉</h4>
+            </div>
+            <div style="line-height: 2em;">
+                <p>1. 左側のテキストボックスに、あなたが校正したいメールの文章を入力してください。
+                    <br>2. 校正ボタンを押下してください。あなたのメールを校正します。
+                    <br>3. 校正結果は右側のテキストボックスに表示されます。
+                    <br>4. 校正結果を参考に、左側のテキストボックスに入力した、あなたの文章を修正してください。
+                    <br>※1 例文ボタン：例文が左側のテキストボックスに表示されます。
+                    <br>※2 コピーボタン：左側のテキストボックスに入力された文章がクリップボードにコピーされます。
+                </p>
+            </div>
+            <div style="text-decoration:underline;text-decoration-color:rgb(195, 195, 195);">
+                <h4>〈注意事項〉</h4>
+            </div>
+            <div style="line-height: 2em;">
+                <p>・文章校正にはYahoo API（校正支援）を使用しています。
+                    <br>・Yahoo APIの仕様上、全ての誤字、誤用を検出できる訳ではございません。あらかじめご了承ください。
+                    <br>・校正可能な文字数は34,100字となっております。
+                    <br>・校正項目は<span><a href="https://developer.yahoo.co.jp/webapi/jlp/kousei/v1/kousei.html">Yahoo
+                            API（校正支援）のHP</a></span>をご確認ください。
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 例文ボタンjs -->
+<script>
+    function clickBtn1() {
+        // 値を設定
+        document.form1.textarea1.value = 'システムの企画から開発・運用幅広く関われます。';
+    }
+</script>
+
+<!-- コピーボタンjs -->
+<script>
+    // フォーム要素を得る
+    var form = document.forms.form1;
+
+    // 対象のテキスト入力要素の中身をコピーするメソッド
+    var copyTextInTarget = function (target) {
+        // 要素に含まれる文字列全てを選択状態にする
+        target.selectionStart = 0;
+        target.selectionEnd = target.value.length;
+        // コピーしたい文字列がある要素をフォーカス
+        target.focus();
+        // コピーを実行する。失敗した場合はログにメッセージを表示。
+        if (!document.execCommand('copy')) {
+            console.log("コピーに失敗しました。");
+        }
+        // フォーカスを外す
+        target.blur();
+    };
+
+    // ボタン（copy1）がクリックされた時
+    form.copy1.addEventListener("click", function (e) {
+        // ボタン本来の動作をブロック
+        e.preventDefault();
+        // フォームの中にあるテキストエリアを取得
+        var textarea = form.textarea1;
+        // 生成と同時にコピーする
+        copyTextInTarget(textarea);
+        document.getSelection().empty(target);
+    }, false);
+</script>
+
+<!-- 文字数カウントjs -->
+<script>
+    function ShowLength(str) {
+        var koseibtn = document.getElementById("koseibtn");
+        if (str.length < 34100) {
+            document.getElementById("inputlength").innerHTML = str.length + "文字入力しています。";
+            koseibtn.disabled = false;
+        }else{
+            document.getElementById("inputlength").innerHTML = str.length + "文字入力しています。" + '<font coler="red">文字数制限を超えています。</font>';
+            koseibtn.disabled = true;
+        }
+    }
+</script>
+{% endblock %}

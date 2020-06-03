@@ -1,0 +1,16 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container">
+        <textarea name="keigo_text" id="keigo_text" cols="30" rows="10"></textarea>
+        <p>選択したテキストを以下へ転記します。</p>
+        <textarea id="tenki" cols="30" rows="4"></textarea>
+</div>
+
+<script>
+    document.onselectionchange = function () {
+        var selText = window.getSelection().toString();
+        console.log(selText)
+        document.getElementById("tenki").textContent = selText;
+    }
+</script>
+
+{% endblock %}
